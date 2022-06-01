@@ -176,7 +176,7 @@ defmodule Sentry do
     included_environments = Config.included_environments()
     environment_name = Config.environment_name()
 
-    TelephonyApi.EventLog.add("SENTRY", event.level, "Exception reported", event.message, event.original_exception)
+    TelephonyApi.EventLog.add("SENTRY", event.level, "Exception reported", event.message, %{exception: event.original_exception})
 
     if environment_name in included_environments do
       Sentry.Client.send_event(event, opts)
